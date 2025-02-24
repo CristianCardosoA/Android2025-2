@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Calculadora2025</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="text_cero_button">0</string>
+    <string name="text_igual_button">=</string>
+    <string name="text_punto_button">.</string>
+
+</resources>

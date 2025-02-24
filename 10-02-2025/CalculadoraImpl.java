@@ -4,6 +4,12 @@ class CalculadoraImpl implements ICalculadora {
 		switch (operacion.getOperando()) {
 			case SUMA:
 				return operacion.getX1() + operacion.getX2();
+			case RESTA:
+				return operacion.getX1() - operacion.getX2();
+			case MULT:
+				return operacion.getX1() * operacion.getX2();
+			case DIV:
+				return operacion.getX1() / operacion.getX2();
 			default:
 				return 0.0;
 		}
