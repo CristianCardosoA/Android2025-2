@@ -6,8 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class CalculadoraUI implements ICalculadoraUI {
+import java.math.BigDecimal;
 
+public class CalculadoraUI implements ICalculadoraUI {
+    CalculadoraOnResult calculadoraResult = null;
+    ICalculadora logica;
     ICalcudoraMemoria memoria = new CalculadoraMemoria();
     Context context;
     TextView txvDisplay;
@@ -42,7 +45,8 @@ public class CalculadoraUI implements ICalculadoraUI {
 
     Button btnZero;
 
-    public CalculadoraUI(Activity activity) {
+    public CalculadoraUI(Activity activity, ICalculadora logica) {
+        this.logica = logica;
         context = activity.getApplicationContext();
         txvDisplay = activity.findViewById(R.id.salida_textView);
         btnZero = activity.findViewById(R.id.cero_button);
@@ -99,10 +103,16 @@ public class CalculadoraUI implements ICalculadoraUI {
             clearScreen();
         });
         btnMasMenos.setOnClickListener(v -> {
-
         });
         btnIgual.setOnClickListener(v -> {
-
+            if (calculadoraResult != null) {
+                memoria.igual();
+                calculadoraResult.onResult(
+                        memoria.getX(),
+                        memoria.getY(),
+                        memoria.getOperacion()
+                );
+            }
         });
         btnResta.setOnClickListener(v -> {
             addOperation(Operacion.RESTA);
@@ -119,6 +129,11 @@ public class CalculadoraUI implements ICalculadoraUI {
         btnPunto.setOnClickListener(v -> {
 
         });
+
+        setOnResult((x, y, operacion) -> {
+            BigDecimal result = logica.calculate(operacion, x, y);
+            txvDisplay.setText(String.valueOf(result));
+        });
     }
 
     @Override
@@ -134,13 +149,18 @@ public class CalculadoraUI implements ICalculadoraUI {
 
     @Override
     public String addNumber(String numero) {
-        txvDisplay.setText(numero);
-        return memoria.concat(numero);
+        String newValue = memoria.concat(numero);
+        txvDisplay.setText(newValue);
+        return newValue;
     }
 
     @Override
     public void addOperation(Operacion operacion) {
         txvDisplay.setText(Operacion.convert(operacion));
         memoria.concat(operacion);
+    }
+
+    public void setOnResult(CalculadoraOnResult result) {
+        this.calculadoraResult = result;
     }
 }

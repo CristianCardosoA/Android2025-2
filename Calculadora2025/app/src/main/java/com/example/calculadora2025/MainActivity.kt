@@ -13,9 +13,10 @@ class MainActivityBinding : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
 
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(view)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -29,9 +30,59 @@ class MainActivityBinding : AppCompatActivity() {
         var multiplicacion = false
         var division = false
 
-        R.id.cero_button
+        binding.ceroButton.setOnClickListener {
+            binding.salidaTextView.text=contador(0)
+        }
+        binding.unoButton.setOnClickListener {
+            binding.salidaTextView.text=contador(1)
+        }
+        binding.dosButton.setOnClickListener {
+            binding.salidaTextView.text=contador(2)
+        }
+        binding.tresButton.setOnClickListener {
+            binding.salidaTextView.text=contador(3)
+        }
+        binding.cuatroButton.setOnClickListener {
+            binding.salidaTextView.text=contador(4)
+        }
+        binding.cincoButton.setOnClickListener {
+            binding.salidaTextView.text=contador(5)
+        }
+        binding.seisButton.setOnClickListener {
+            binding.salidaTextView.text=contador(6)
+        }
+        binding.sieteButton.setOnClickListener {
+            binding.salidaTextView.text=contador(7)
+        }
+        binding.ochoButton.setOnClickListener {
+            binding.salidaTextView.text=contador(8)
+        }
+        binding.nueveButton.setOnClickListener {
+            binding.salidaTextView.text=contador(9)
+        }
+        binding.acButton.setOnClickListener {
+            binding.salidaTextView.text="0"
+        }
+        binding.puntoButton.setOnClickListener {
+            binding.salidaTextView.text="${binding.salidaTextView.text}."
+        }
 
     }   //Fin función OnCreate()
+
+    //Creo una nueva función
+    fun contador(nuevoNumero: Int) : String {
+        //binding.salidaTextView.text="$textoActual$nuevoNumero"
+        //binding.salidaTextView.text=textoActual.toString().plus(nuevoNumero.toString())
+        //binding.salidaTextView.text="${binding.salidaTextView.text}$nuevoNumero"
+        if(binding.salidaTextView.text=="0"){
+            return "$nuevoNumero"
+        }
+        else{
+            return "${binding.salidaTextView.text}$nuevoNumero"
+        }
+
+    }
+
 }  //Fin Clase MainActivity
 
 //Esto es un comentario

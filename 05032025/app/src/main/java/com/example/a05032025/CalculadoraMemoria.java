@@ -1,10 +1,15 @@
 package com.example.a05032025;
 
+import java.math.BigDecimal;
+
 public class CalculadoraMemoria implements ICalcudoraMemoria {
+    private String display = "0.0";
 
-    String display = "";
+    private Operacion operacion;
 
-    Operacion operacion;
+    private BigDecimal x;
+
+    private BigDecimal y;
 
     @Override
     public String concat(String numero) {
@@ -15,12 +20,36 @@ public class CalculadoraMemoria implements ICalcudoraMemoria {
     @Override
     public String concat(Operacion operacion) {
         this.operacion = operacion;
-        return Operacion.convert(operacion);
+        this.x = BigDecimal.valueOf(Long.parseLong(display));
+        this.display = "";
+        return "";//Operacion.convert(operacion);
+    }
+
+    @Override
+    public Operacion getOperacion() {
+        return operacion;
+    }
+
+    @Override
+    public BigDecimal getX() {
+        return x;
+    }
+
+    @Override
+    public BigDecimal getY() {
+        return y;
     }
 
     @Override
     public void clear() {
         display = "";
-        operacion = null;
+        operacion = Operacion.NONE;
+        x = BigDecimal.ZERO;
+        y = BigDecimal.ZERO;
+    }
+
+    @Override
+    public void igual() {
+        this.y = BigDecimal.valueOf(Long.parseLong(display));
     }
 }
