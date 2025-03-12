@@ -1,5 +1,6 @@
 package com.example.contactosapp;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +34,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         }
     }
 
-    List<Contact> listContacts;
+    ContactStore dataSource;
 
-    public ContactAdapter(List<Contact> listContacts) {
-        this.listContacts = listContacts;
+    public ContactAdapter() {
+        this.dataSource = new ContactStore();
     }
 
     @NonNull
@@ -49,13 +50,18 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Contact contact = listContacts.get(position);
+        Contact contact = dataSource.get(position);
         holder.setName(contact.getName());
         holder.setPhone(contact.getPhone());
+        holder.itemView.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), DetailActivity.class);
+            i.putExtra(BundleConstants.CONTACT_PHONE, contact.getPhone());
+            v.getContext().startActivity(i);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return this.listContacts.size();
+        return this.dataSource.size();
     }
 }

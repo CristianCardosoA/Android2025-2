@@ -1,6 +1,7 @@
 package com.example.calculadora2025
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -64,7 +65,82 @@ class MainActivityBinding : AppCompatActivity() {
             binding.salidaTextView.text="0"
         }
         binding.puntoButton.setOnClickListener {
-            binding.salidaTextView.text="${binding.salidaTextView.text}."
+            if (!binding.salidaTextView.text.contains("."))
+                binding.salidaTextView.text="${binding.salidaTextView.text}."
+        }
+
+        binding.masmenosButton.setOnClickListener {
+            binding.salidaTextView.text=(binding.salidaTextView.text.toString().toDouble() * -1).toString()
+        }
+
+        binding.porcientoButton.setOnClickListener {
+            binding.salidaTextView.text=(binding.salidaTextView.text.toString().toFloat() * 0.01).toString()
+        }
+
+        binding.masButton.setOnClickListener {
+            resultado=binding.salidaTextView.text.toString().toDouble()
+            binding.salidaTextView.text="0"
+            suma=true
+            resta = false
+            multiplicacion=false
+            division=false
+            binding.masButton.visibility=View.INVISIBLE
+        }
+
+        binding.menosButton.setOnClickListener {
+            resultado=binding.salidaTextView.text.toString().toDouble()
+            binding.salidaTextView.text="0"
+            suma = false
+            resta = true
+            multiplicacion = false
+            division = false
+            binding.menosButton.visibility=View.GONE
+        }
+
+        binding.porButton.setOnClickListener {
+            resultado=binding.salidaTextView.text.toString().toDouble()
+            binding.salidaTextView.text="0"
+            suma = false
+            resta = false
+            multiplicacion = true
+            division = false
+        }
+
+        binding.entreButton.setOnClickListener {
+            resultado=binding.salidaTextView.text.toString().toDouble()
+            binding.salidaTextView.text="0"
+            suma = false
+            resta = false
+            multiplicacion = false
+            division = true
+        }
+
+        binding.igualButton.setOnClickListener {
+            when{
+                suma -> {
+                    resultado += binding.salidaTextView.text.toString().toDouble()
+                    //binding.salidaTextView.text=resultado.toString()
+                    binding.salidaTextView.text="$resultado"
+                    suma = false
+                    binding.masButton.visibility=View.VISIBLE
+                }
+                resta -> {
+                    resultado -= binding.salidaTextView.text.toString().toDouble()
+                    binding.salidaTextView.text="$resultado"
+                    resta= false
+                    binding.menosButton.visibility=View.VISIBLE
+                }
+                multiplicacion -> {
+                    resultado *= binding.salidaTextView.text.toString().toDouble()
+                    binding.salidaTextView.text="$resultado"
+                    multiplicacion=false
+                }
+                division -> {
+                    resultado /= binding.salidaTextView.text.toString().toDouble()
+                    binding.salidaTextView.text="$resultado"
+                    division=false
+                }
+            }
         }
 
     }   //Fin función OnCreate()

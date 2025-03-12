@@ -1,33 +1,39 @@
 package com.example.contactosapp;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+public class DetailActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
+    Contact contact;
 
-    ContactAdapter contactAdapter;
-    RecyclerView listContacts;
+    TextView txvName;
+    TextView txvPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_detail);
 
-        listContacts = findViewById(R.id.listContacts);
-        contactAdapter = new ContactAdapter();
-        listContacts.setAdapter(contactAdapter);
-        listContacts.setLayoutManager(new LinearLayoutManager(this));
+        txvName = findViewById(R.id.txvName);
+        txvPhone = findViewById(R.id.txvPhone);
+
+        String phoneNumber = getIntent().getStringExtra(BundleConstants.CONTACT_PHONE);
+
+        if (phoneNumber != null) {
+            ContactStore contactStore = new ContactStore();
+            contact = contactStore.findContactByPhone(phoneNumber);
+
+            txvPhone.setText(contact.getPhone());
+            txvName.setText(contact.getName());
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
