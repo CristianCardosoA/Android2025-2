@@ -1,0 +1,23 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Diccionario2025" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Diccionario2025" parent="Base.Theme.Diccionario2025" />
+
+    <!-- Estilo para el searchView -->
+    <style name="Theme.SearchView" parent="Widget.AppCompat.Light.SearchView">
+        <item name="android:editTextColor">@color/colorPrimaryDark</item>
+        <item name="android:textColorHint">@color/colorUnfocused</item>
+        <item name="android:textColorPrimary">@color/colorUnfocused</item>
+        <item name="android:textColorSecondary">@color/colorUnfocused</item>
+        <item name="android:background">@color/colorClear</item>
+        <item name="android:inputType">text</item>
+        <item name="hintEnabled">true</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:backgroundTint">@color/colorClear</item>
+    </style>
+
+</resources>
