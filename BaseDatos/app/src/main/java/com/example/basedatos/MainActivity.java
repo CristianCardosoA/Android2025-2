@@ -17,10 +17,6 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    interface OnUserDBSave {
-        void onSavedUser(User user);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,25 +31,6 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-    }
-
-    private void initDB(OnUserDBSave onUserDBSave) {
-
-        AsyncTask.execute(() -> {
-            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                    AppDatabase.class, "database-name").build();
-
-            UserDao userDao = db.userDao();
-            User user1 = new User();
-            user1.uid = new Random().nextInt();
-            user1.firstName = "Pancho";
-            user1.lastName = "Ramones";
-
-            userDao.insertAll(user1);
-
-            List<User> lista =  userDao.getAll();
-            onUserDBSave.onSavedUser(lista.get(0));
         });
     }
 }

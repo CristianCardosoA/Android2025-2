@@ -1,11 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Diccionario2025" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Diccionario2025" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
-    <style name="Theme.Diccionario2025" parent="Base.Theme.Diccionario2025" />
+    <!-- Estilo general (para toda la app) (llamado desde el manifest) -->
+    <style name="Theme.Diccionario2025" parent="Base.Theme.Diccionario2025">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    </style>
 
     <!-- Estilo para el searchView -->
     <style name="Theme.SearchView" parent="Widget.AppCompat.Light.SearchView">
