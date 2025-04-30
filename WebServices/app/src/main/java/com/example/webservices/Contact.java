@@ -4,10 +4,12 @@ public class Contact {
 
     String name;
     String phone;
+    String imagenUrl;
 
-    public Contact(String name, String phone) {
+    public Contact(String name, String phone, String imagenUrl) {
         this.name = name;
         this.phone = phone;
+        this.imagenUrl = imagenUrl;
     }
 
     public String getName() {

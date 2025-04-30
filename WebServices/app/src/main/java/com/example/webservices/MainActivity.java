@@ -2,6 +2,7 @@ package com.example.webservices;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -9,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txvContacts;
 
+    ImageView imagen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         txvContacts = findViewById(R.id.txvContacts);
+        imagen = findViewById(R.id.imagen);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://fca-flask-production-21dc.up.railway.app")
+                .baseUrl("http://ccardoso.multics.org/fca_imagen")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -46,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
             List<Contact> contacts = response.body();
             assert contacts != null;
             txvContacts.setText(contacts.toString());
+
+            //Glide.with(this).load(contacts.get(0).imagenUrl).into(imagen);
+            Picasso.get().load(contacts.get(0).imagenUrl).into(imagen);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
